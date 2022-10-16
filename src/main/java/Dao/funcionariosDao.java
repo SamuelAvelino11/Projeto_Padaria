@@ -33,18 +33,19 @@ public class funcionariosDao {
     
     public void CadastrarFuncionario(Funcionario func){
         try {
-            String sql = "insert into funcionarios values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into funcionarios(nome, idade, endereco, celular, Matricula, rg, cpf, senha)"
+                    + " values(?,?,?,?,?,?,?,?)";
             
             PreparedStatement stmt = con.prepareStatement(sql);
-             stmt.setLong(1, func.getId());
-            stmt.setString(2, func.getNome());
-            stmt.setInt(3, func.getIdade());
-            stmt.setString(4, func.getEndereco());
-            stmt.setString(5, func.getCelular());
-            stmt.setString(6, func.getMatricula());
-            stmt.setString(7, func.getRg());
-             stmt.setString(8, func.getCpf());
-             stmt.setString(9, func.getSenha());
+             
+            stmt.setString(1, func.getNome());
+            stmt.setInt(2, func.getIdade());
+            stmt.setString(3, func.getEndereco());
+            stmt.setString(4, func.getCelular());
+            stmt.setString(5, func.getMatricula());
+            stmt.setString(6, func.getRg());
+             stmt.setString(7, func.getCpf());
+             stmt.setString(8, func.getSenha());
                 
                   
                    stmt.execute();
@@ -118,6 +119,42 @@ public class funcionariosDao {
             return null;
         }
     
+    }
+    public void alterarFuncionario(Funcionario func) throws SQLException {
+        try {
+            String sql = "update funcionarios set nome=?, idade=?, endereco=?, celular=?, cpf=?"
+                    + "where id_funcionario=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, func.getId());
+            stmt.setString(2, func.getNome());
+            stmt.setInt(3, func.getIdade());
+            stmt.setString(4, func.getEndereco());
+            stmt.setString(5, func.getCelular());
+            stmt.setString(6, func.getCpf());
+
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null, "Alterado");
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "errado: " + erro);
+        }
+    }
+
+    public void excluirFuncionario(Funcionario func) throws SQLException {
+        try {
+            String sql = "delete from funcionarios where id_funcionario=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, func.getId());
+
+            stmt.execute();
+
+            stmt.close();
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "errado: " + erro);
+        }
     }
     
 }
