@@ -70,7 +70,7 @@ public class cliente extends javax.swing.JFrame {
         txtEndereco = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        btnPesquisar2 = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
@@ -135,8 +135,13 @@ public class cliente extends javax.swing.JFrame {
         txtId.setEditable(false);
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnPesquisar2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnPesquisar2.setText("Pesquisar");
+        btnConsultar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnConsultar.setText("Pesquisar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -169,7 +174,7 @@ public class cliente extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnPesquisar2)
+                        .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(33, 33, 33)
@@ -192,7 +197,7 @@ public class cliente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnPesquisar2)))
+                        .addComponent(btnConsultar)))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -484,8 +489,42 @@ public class cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_NomeKeyPressed
 
     private void btnExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluir1ActionPerformed
-        // TODO add your handling code here:
+        Cliente cl = new Cliente();
+            
+            
+            cl.setId(Integer.parseInt(txtId.getText()));
+            
+            ClienteDao dao = new ClienteDao();
+        try {  
+            dao.excluirCliente(cl);
+             new Utilitarios().LimpaTela(jPanel2);
+        } catch (SQLException ex) {
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnExcluir1ActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+            String nome = txtNome.getText();
+            Cliente cl = new Cliente();
+            ClienteDao dao = new ClienteDao();
+            
+            cl = dao.consultaPorNome(nome);
+           
+            if(cl.getNome() != null){
+            txtId.setText(String.valueOf(cl.getId()));
+            txtNome.setText(cl.getNome());
+            txtIdade.setText(String.valueOf(cl.getIdade()));
+            txtEndereco.setText(cl.getEndereco());
+            txtCelular.setText(cl.getCelular());
+            txtCpf.setText(cl.getCpf());
+            }else{
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+            }
+        } catch (Exception erro) {
+            
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,11 +564,11 @@ public class cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabela;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir1;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
