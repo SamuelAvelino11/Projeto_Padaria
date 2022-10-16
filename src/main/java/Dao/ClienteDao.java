@@ -59,13 +59,12 @@ public class ClienteDao {
             stmt.setString(4, cl.getEndereco());
             stmt.setString(5, cl.getCelular());
             stmt.setString(6, cl.getCpf());
-            
 
             stmt.execute();
             stmt.close();
             JOptionPane.showMessageDialog(null, "Alterado");
         } catch (SQLException erro) {
-            
+
             JOptionPane.showMessageDialog(null, "errado: " + erro);
         }
     }
@@ -75,14 +74,13 @@ public class ClienteDao {
             String sql = "delete from cliente where id_cliente=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, cl.getId());
-           
 
             stmt.execute();
-            
+
             stmt.close();
             JOptionPane.showMessageDialog(null, "Excluido com sucesso");
         } catch (SQLException erro) {
-            
+
             JOptionPane.showMessageDialog(null, "errado: " + erro);
         }
     }
@@ -97,7 +95,6 @@ public class ClienteDao {
             //recebe a execução do sql
             ResultSet rs = stmt.executeQuery();
 
-            
             while (rs.next()) {
                 Cliente cl = new Cliente();
                 cl.setId(rs.getInt("id_cliente"));
@@ -118,4 +115,63 @@ public class ClienteDao {
 
         }
     }
+
+    public List<Cliente> BuscarPorNome(String nome) {
+        try {
+            List<Cliente> lista = new ArrayList<>();
+
+            String sql = "select * from cliente where nome like ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            //recebe a execução do sql
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cl = new Cliente();
+                cl.setId(rs.getInt("id_cliente"));
+                cl.setNome(rs.getString("nome"));
+                cl.setIdade(rs.getInt("idade"));
+                cl.setEndereco(rs.getString("endereco"));
+                cl.setCelular(rs.getString("celular"));
+                cl.setCpf(rs.getString("cpf"));
+
+                lista.add(cl);
+
+            }
+            return lista;
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+
+        }
+    }
+
+    public  Cliente consultaPorNome(String nome) {
+        try {
+            String sql = "select * from cliente where nome = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            Cliente cl = new Cliente();
+            if (rs.next()) {
+                
+                cl.setId(rs.getInt("id_cliente"));
+                cl.setNome(rs.getString("nome"));
+                cl.setIdade(rs.getInt("idade"));
+                cl.setEndereco(rs.getString("endereco"));
+                cl.setCelular(rs.getString("celular"));
+                cl.setCpf(rs.getString("cpf"));
+
+               
+            }
+            return cl;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+        }
+    }
+
 }
