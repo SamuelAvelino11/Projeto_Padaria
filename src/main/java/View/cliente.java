@@ -6,7 +6,11 @@ package View;
 
 import Dao.ClienteDao;
 import Model.Cliente;
+import Model.Utilitarios;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -75,7 +79,8 @@ public class cliente extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnExcluir1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -116,12 +121,18 @@ public class cliente extends javax.swing.JFrame {
         jLabel6.setText("Cpf:");
 
         txtCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfKeyPressed(evt);
+            }
+        });
 
         txtEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel8.setText("Código");
 
+        txtId.setEditable(false);
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnPesquisar2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -238,9 +249,19 @@ public class cliente extends javax.swing.JFrame {
         jLabel7.setText("Nome:");
 
         txt_Nome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_Nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_NomeKeyPressed(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -291,12 +312,21 @@ public class cliente extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(153, 0, 0));
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        btnNovo.setForeground(new java.awt.Color(153, 0, 0));
+        btnNovo.setText("+ Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnExcluir1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        btnExcluir1.setForeground(new java.awt.Color(153, 0, 0));
+        btnExcluir1.setText("Excluir");
+        btnExcluir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluir1ActionPerformed(evt);
             }
         });
 
@@ -304,19 +334,22 @@ public class cliente extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(226, 226, 226))
-            .addComponent(jTabbedPane1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(btnCadastrar)
-                .addGap(104, 104, 104)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(226, 226, 226))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnCadastrar)
+                        .addGap(65, 65, 65)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
+                        .addComponent(btnExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,9 +360,10 @@ public class cliente extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir)
+                    .addComponent(btnNovo)
                     .addComponent(btnEditar)
-                    .addComponent(btnCadastrar))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnExcluir1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -359,7 +393,9 @@ public class cliente extends javax.swing.JFrame {
             cl.setCpf(txtCpf.getText());
             
             ClienteDao dao = new ClienteDao();
-            dao.cadastrarCliente(cl);   
+            dao.cadastrarCliente(cl); 
+            
+            new Utilitarios().LimpaTela(jPanel2);
        
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -390,17 +426,66 @@ public class cliente extends javax.swing.JFrame {
             cl.setId(Integer.parseInt(txtId.getText()));
             
             ClienteDao dao = new ClienteDao();
-            dao.alterarCliente(cl);  
+        try {  
+            dao.alterarCliente(cl);
+             new Utilitarios().LimpaTela(jPanel2);
+        } catch (SQLException ex) {
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Cliente cl = new Cliente();
-            
-            cl.setCpf(txtCpf.getText());
-            
-            ClienteDao dao = new ClienteDao();
-            dao.excluirCliente(cl);  
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        new Utilitarios().LimpaTela(jPanel2);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+       
+        String nome = "%"+ txt_Nome.getText() + "%";
+        
+        ClienteDao dao = new ClienteDao();
+        List<Cliente> lista = dao.BuscarPorNome(nome);
+        DefaultTableModel inf = (DefaultTableModel)Tabela.getModel();
+        inf.setNumRows(0);
+        
+        for(Cliente c: lista)
+        inf.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getIdade(),
+            c.getEndereco(),
+            c.getCelular(),
+            c.getCpf()
+        });
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
+       
+        
+    }//GEN-LAST:event_txtCpfKeyPressed
+
+    private void txt_NomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NomeKeyPressed
+        String nome = "%"+ txt_Nome.getText() + "%";
+        
+        ClienteDao dao = new ClienteDao();
+        List<Cliente> lista = dao.BuscarPorNome(nome);
+        DefaultTableModel inf = (DefaultTableModel)Tabela.getModel();
+        inf.setNumRows(0);
+        
+        for(Cliente c: lista)
+        inf.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getIdade(),
+            c.getEndereco(),
+            c.getCelular(),
+            c.getCpf()
+        });
+    }//GEN-LAST:event_txt_NomeKeyPressed
+
+    private void btnExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluir1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,7 +526,8 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JTable Tabela;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExcluir1;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnPesquisar2;
     private javax.swing.JLabel jLabel1;
