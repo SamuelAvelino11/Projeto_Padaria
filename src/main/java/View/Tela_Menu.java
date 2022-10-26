@@ -55,23 +55,23 @@ public class Tela_Menu extends javax.swing.JFrame {
             .addGap(0, 396, Short.MAX_VALUE)
         );
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas.png"))); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\samue\\OneDrive\\Área de Trabalho\\Projeto_Padaria\\src\\main\\java\\imagens\\vendas.png")); // NOI18N
         jMenu2.setText(" Venda");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/funcionarios.png"))); // NOI18N
+        jMenu3.setIcon(new javax.swing.ImageIcon("C:\\Users\\samue\\OneDrive\\Área de Trabalho\\Projeto_Padaria\\src\\main\\java\\imagens\\funcionarios.png")); // NOI18N
         jMenu3.setText("Funcionario");
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos.png"))); // NOI18N
+        jMenu4.setIcon(new javax.swing.ImageIcon("C:\\Users\\samue\\OneDrive\\Área de Trabalho\\Projeto_Padaria\\src\\main\\java\\imagens\\produtos.png")); // NOI18N
         jMenu4.setText("Estoque");
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/clientes.png"))); // NOI18N
+        jMenu5.setIcon(new javax.swing.ImageIcon("C:\\Users\\samue\\OneDrive\\Área de Trabalho\\Projeto_Padaria\\src\\main\\java\\imagens\\clientes.png")); // NOI18N
         jMenu5.setText("Cliente");
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon("C:\\Users\\samue\\OneDrive\\Área de Trabalho\\Projeto_Padaria\\src\\main\\java\\imagens\\editar.png")); // NOI18N
         jMenu6.setText("Relatorios");
         jMenuBar1.add(jMenu6);
 

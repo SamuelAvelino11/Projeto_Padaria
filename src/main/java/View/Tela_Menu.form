@@ -21,7 +21,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/vendas.png"/>
+              <Image iconType="2" name="C:\Users\samue\OneDrive\&#xc1;rea de Trabalho\Projeto_Padaria\src\main\java\imagens\vendas.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Venda"/>
           </Properties>
@@ -29,7 +29,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/funcionarios.png"/>
+              <Image iconType="2" name="C:\Users\samue\OneDrive\&#xc1;rea de Trabalho\Projeto_Padaria\src\main\java\imagens\funcionarios.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Funcionario"/>
           </Properties>
@@ -37,7 +37,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/produtos.png"/>
+              <Image iconType="2" name="C:\Users\samue\OneDrive\&#xc1;rea de Trabalho\Projeto_Padaria\src\main\java\imagens\produtos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Estoque"/>
           </Properties>
@@ -45,7 +45,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/clientes.png"/>
+              <Image iconType="2" name="C:\Users\samue\OneDrive\&#xc1;rea de Trabalho\Projeto_Padaria\src\main\java\imagens\clientes.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
@@ -53,7 +53,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/editar.png"/>
+              <Image iconType="2" name="C:\Users\samue\OneDrive\&#xc1;rea de Trabalho\Projeto_Padaria\src\main\java\imagens\editar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Relatorios"/>
           </Properties>
