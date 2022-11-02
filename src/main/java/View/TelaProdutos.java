@@ -46,7 +46,10 @@ public class TelaProdutos extends javax.swing.JFrame {
         p.getNome(),
         p.getFabricação(),
         p.getCategoria(),
-        p.getDescrição()
+        p.getDescrição(),
+        p.getPreco(),
+        p.getQuantidade(),
+        p.getValidade()
             
     });
     
@@ -82,9 +85,9 @@ public class TelaProdutos extends javax.swing.JFrame {
         txtQtd = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtFabricacao = new javax.swing.JFormattedTextField();
-        txtPreco = new javax.swing.JFormattedTextField();
-        txtValidade = new javax.swing.JFormattedTextField();
+        txtFabricacao = new javax.swing.JTextField();
+        txtPreco = new javax.swing.JTextField();
+        txtValidade = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaProdutos = new javax.swing.JTable();
@@ -162,11 +165,11 @@ public class TelaProdutos extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel16.setText("Validade:");
 
-        txtFabricacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtFabricacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        txtPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        txtValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtValidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -198,23 +201,22 @@ public class TelaProdutos extends javax.swing.JFrame {
                                 .addGap(25, 25, 25)
                                 .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addComponent(txtFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(185, 185, 185)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addGap(33, 33, 33)
                                         .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel16)
-                                            .addGap(43, 43, 43)
-                                            .addComponent(txtValidade))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel15)
-                                            .addGap(51, 51, 51)
-                                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                            .addComponent(jLabel16))
+                                        .addGap(58, 58, 58)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtPreco)
+                                            .addComponent(txtValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))))))
                 .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
@@ -231,7 +233,7 @@ public class TelaProdutos extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar))
-                        .addGap(44, 44, 44)
+                        .addGap(41, 41, 41)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -243,11 +245,11 @@ public class TelaProdutos extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
                             .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
+                        .addGap(55, 55, 55)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
                             .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(41, 41, 41)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,7 +257,7 @@ public class TelaProdutos extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro de Produtos", jPanel2);
@@ -270,11 +272,11 @@ public class TelaProdutos extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Fabricação", "Categoria", "Descrição", "Quantidade", "Preço", "Validade"
+                "Código", "Nome", "Fabricação", "Categoria", "Descrição", "Preço", "Quantidade", "Validade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -416,11 +418,16 @@ public class TelaProdutos extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         Produtos prod = new Produtos();  
+        int qtd = Integer.parseInt(txtQtd.getText());
+        
         
         prod.setNome(txtNome.getText());
         prod.setFabricação(txtFabricacao.getText());
         prod.setCategoria(txtCategoria.getText());
         prod.setDescrição(txtDescricao.getText());
+        prod.setPreco(Double.parseDouble(txtPreco.getText()));
+        prod.setQuantidade(qtd);
+        prod.setValidade(txtValidade.getText());
         
         
         ProdutosDao dao = new ProdutosDao();
@@ -441,6 +448,9 @@ public class TelaProdutos extends javax.swing.JFrame {
         txtFabricacao.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),2).toString());
         txtCategoria.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),3).toString());
         txtDescricao.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),4).toString());
+        txtPreco.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),5).toString());
+        txtQtd.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),6).toString());
+        txtValidade.setText(TabelaProdutos.getValueAt(TabelaProdutos.getSelectedRow(),7).toString());
     }//GEN-LAST:event_TabelaProdutosMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -451,6 +461,10 @@ public class TelaProdutos extends javax.swing.JFrame {
         prod.setFabricação(txtFabricacao.getText());
         prod.setCategoria(txtCategoria.getText());
         prod.setDescrição(txtDescricao.getText());
+        prod.setPreco(Double.parseDouble(txtPreco.getText()));
+        prod.setQuantidade(Integer.parseInt(txtQtd.getText()));
+        prod.setValidade(txtValidade.getText());
+        
         
         ProdutosDao dao = new ProdutosDao();
          
@@ -478,8 +492,11 @@ public class TelaProdutos extends javax.swing.JFrame {
         p.getNome(),
         p.getFabricação(),
         p.getCategoria(),
-        p.getDescrição()
-        
+        p.getDescrição(),
+         p.getPreco(),
+        p.getQuantidade(),
+        p.getValidade()
+                    
     });
             
         
@@ -518,6 +535,9 @@ public class TelaProdutos extends javax.swing.JFrame {
                 txtFabricacao.setText(prod.getFabricação());
                 txtCategoria.setText(prod.getCategoria());
                 txtDescricao.setText(prod.getDescrição());
+                txtPreco.setText(String.valueOf(prod.getPreco()));
+                txtQtd.setText(String.valueOf(prod.getQuantidade()));
+                txtValidade.setText(prod.getValidade());
             }else{
                 JOptionPane.showMessageDialog(null, "Funcionario não existe!!");
             }
@@ -596,12 +616,12 @@ public class TelaProdutos extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtDescricao;
-    private javax.swing.JFormattedTextField txtFabricacao;
+    private javax.swing.JTextField txtFabricacao;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JFormattedTextField txtPreco;
+    private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtQtd;
-    private javax.swing.JFormattedTextField txtValidade;
+    private javax.swing.JTextField txtValidade;
     private javax.swing.JTextField txt_Nome;
     // End of variables declaration//GEN-END:variables
 }

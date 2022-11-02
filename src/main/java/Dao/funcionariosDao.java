@@ -135,8 +135,8 @@ public class funcionariosDao {
             stmt.setString(5, func.getCelular());
             stmt.setString(6, func.getCpf());
 
-            stmt.execute();
-            stmt.close();
+            stmt.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Alterado");
         } catch (SQLException erro) {
 

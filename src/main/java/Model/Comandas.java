@@ -14,6 +14,17 @@ public class Comandas {
     private String nome;
     private int quantidade;
     private double preco;
+    private double precoFinal;
+
+    public double getPrecoFinal() {
+        return precoFinal;
+    }
+
+    public void setPrecoFinal(double precoFinal) {
+        this.precoFinal = precoFinal;
+    }
+    
+    
 
     public int getId() {
         return id;

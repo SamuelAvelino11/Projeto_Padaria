@@ -4,12 +4,18 @@
  */
 package Dao;
 
+import Model.Cliente;
+import Model.Comandas;
 import Model.Produtos;
+import Model.Vendas;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 /**
  *
@@ -28,16 +34,31 @@ public class ComandaDao {
     }
     public void CriarTabelaComanda(String nome) throws SQLException{
         
-        String sql = "use padaria;" + "drop table if exists " + nome + ";" + 
-                "create table " + nome + "(id int (10)primary key, nome varchar(50), quantidade int(100), preco Double(5,2));";
+        String sql =  
+                "create table IF NOT EXISTS " + nome + "(id int (10)primary key, nome varchar(50), quantidade int(100), preco Double, precoFinal Double);";
         
-        PreparedStatement stmt = con.prepareStatement(sql);
+        Statement stmt;
+        stmt = con.createStatement();
+        stmt.execute(sql);
+        
+        JOptionPane.showMessageDialog(null, "Comanda cadastrada com sucesso");
+    
+    }
+    public void CriarTabela() throws SQLException{
+        String nome = "venda";
+        String sql =  
+                "create table IF NOT EXISTS " + nome + "(id int (10)primary key, nome varchar(50),nome_cl varchar(50),data Date,cpf_cl varchar(20), quantidade int(100), preco Double, precoFinal Double);";
+        
+        Statement stmt;
+        stmt = con.createStatement();
+        stmt.execute(sql);
+        
         JOptionPane.showMessageDialog(null, "Comanda cadastrada com sucesso");
     
     }
     
-    public void AdicionarAComanda(String nome, String comanda) throws SQLException{
-        String sql = "select id_prod,nome,quantidade,preco from produto where nome = ?";
+    public void AdicionarAComanda(String nome, String comanda, int qtd) throws SQLException{
+        String sql = "select id_prod,nome,preco from produto where nome = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, nome);
          ResultSet rs = stmt.executeQuery();
@@ -47,28 +68,85 @@ public class ComandaDao {
          if(rs.next()){
              prod.setId(rs.getInt("id_prod"));
              prod.setNome(rs.getString("nome"));
-             prod.setQuantidade(rs.getInt("quantidade"));
              prod.setPreco(rs.getDouble("preco"));
          }
          
+         String sql2 = "insert into "+ comanda +"(id, nome, quantidade, preco , precoFinal) values (?,?,?,?,?)";
+         
+         PreparedStatement insert = con.prepareStatement(sql2);
+         
+         Comandas com = new Comandas();
+         com.setId(prod.getId());
+         com.setNome(prod.getNome());
+         com.setQuantidade(qtd);
+         com.setPreco(prod.getPreco());
+         com.setPrecoFinal(prod.getPreco() * qtd);
+         insert.setInt(1, com.getId());
+         insert.setString(2, com.getNome());
+         insert.setInt(3, com.getQuantidade());
+         insert.setDouble(4, com.getPreco());
+         insert.setDouble(5, com.getPrecoFinal());
+         
+         stmt.execute();
+         stmt.close();
+         insert.execute();
+         insert.close();
+         
     }
     
-   /*public void cadastrarCliente(Cliente cl) {
-        try {
-            String sql = "insert into cliente (nome, idade, endereco, celular, cpf)"
-                    + "values(?,?,?,?,?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, cl.getNome());
-            stmt.setInt(2, cl.getIdade());
-            stmt.setString(3, cl.getEndereco());
-            stmt.setString(4, cl.getCelular());
-            stmt.setString(5, cl.getCpf());
-
-            stmt.execute();
-            stmt.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Cadastrado errado" + erro);
+    public List<Comandas> listaDeItens(String nome) throws SQLException{
+        List<Comandas> lista = new ArrayList<>();
+        
+        String sql = "select * from ?;";
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setString(1, nome);
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            Comandas com = new Comandas();
+            
+            com.setId(rs.getInt("id"));
+            com.setNome(rs.getString("nome"));
+            com.setQuantidade(rs.getInt("quantidade"));
+            com.setPreco(rs.getDouble("preco"));
+            com.setPrecoFinal(rs.getDouble("precoFinal"));
+            
+            lista.add(com);
         }
-    }*/
+        
+        return lista;
+    }
+     public  Cliente consultaPorNome(String nome) {
+        try {
+            String sql = "select nome,cpf from cliente where nome = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            Cliente cl = new Cliente();
+            if (rs.next()) {
+                                
+                cl.setNome(rs.getString("nome"));
+                cl.setCpf(rs.getString("cpf"));              
+            }
+            return cl;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+        }
+    }
+ 
+     public Vendas Total(String nome) throws SQLException{
+         String sql = "select sum(precoFinal) from " + nome;
+         PreparedStatement stmt = con.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery();
+         
+         Vendas ven = new Vendas();
+         
+         if (rs.next()){
+             ven.setTotal(rs.getDouble("precoFinal"));
+         }
+         return ven;
+     }
 }

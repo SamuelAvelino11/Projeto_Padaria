@@ -29,8 +29,8 @@ public class ProdutosDao {
     
     
          try {
-            String sql = "insert into produto(nome, fabricacao, categoria, descricao)"
-                    + " values(?,?,?,?)";
+            String sql = "insert into produto(nome, fabricacao, categoria, descricao,preco,quantidade,validade)"
+                    + " values(?,?,?,?,?,?,?)";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -38,6 +38,9 @@ public class ProdutosDao {
             stmt.setString(2, prod.getFabricação());
             stmt.setString(3, prod.getCategoria());
             stmt.setString(4, prod.getDescrição());
+            stmt.setDouble(5, prod.getPreco());
+            stmt.setInt(6, prod.getQuantidade());
+            stmt.setString(7, prod.getValidade());
             
 
             stmt.execute();
@@ -68,6 +71,9 @@ public class ProdutosDao {
                 prod.setFabricação(rs.getString("fabricacao"));
                 prod.setCategoria(rs.getString("categoria"));
                 prod.setDescrição(rs.getString("descricao"));
+                prod.setPreco(rs.getDouble("preco"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setValidade(rs.getString("validade"));
                 
 
                 Lista.add(prod);
@@ -81,7 +87,7 @@ public class ProdutosDao {
     }
     public void editarProduto(Produtos prod) throws SQLException {
         try {
-            String sql = "update produto set nome=?, fabricacao=?, categoria=?, descricao=?"
+            String sql = "update produto set nome=?, fabricacao=?, categoria=?, descricao=?, preco=?, quantidade=?, validade=?"
                     + "where id_prod=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, prod.getId());
@@ -89,6 +95,9 @@ public class ProdutosDao {
             stmt.setString(3, prod.getFabricação());
             stmt.setString(4, prod.getCategoria());
             stmt.setString(5, prod.getDescrição());
+            stmt.setDouble(6, prod.getPreco());
+            stmt.setInt(7, prod.getQuantidade());
+            stmt.setString(8, prod.getValidade());
             
 
             stmt.execute();
@@ -118,7 +127,7 @@ public class ProdutosDao {
         try {
             List<Produtos> lista = new ArrayList<>();
 
-            String sql = "select id_prod,nome,fabricacao,categoria,descricao from produto where nome like ?";
+            String sql = "select id_prod,nome,fabricacao,categoria,descricao,preco,quantidade,validade from produto where nome like ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
@@ -132,6 +141,9 @@ public class ProdutosDao {
                 prod.setFabricação(rs.getString("fabricacao"));
                 prod.setCategoria(rs.getString("categoria"));
                 prod.setDescrição(rs.getString("descricao"));
+                prod.setPreco(rs.getDouble("preco"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setValidade(rs.getString("validade"));
                
                
 
@@ -148,7 +160,7 @@ public class ProdutosDao {
     }
     public Produtos consultaPorNome(String nome) {
         try {
-            String sql = "select id_prod,nome,fabricacao,categoria,descricao from produto where nome = ?";
+            String sql = "select id_prod,nome,fabricacao,categoria,descricao,preco,quantidade,validade from produto where nome = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
@@ -161,6 +173,9 @@ public class ProdutosDao {
                 prod.setFabricação(rs.getString("fabricacao"));
                 prod.setCategoria(rs.getString("categoria"));
                 prod.setDescrição(rs.getString("descricao"));
+                prod.setPreco(rs.getDouble("preco"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setValidade(rs.getString("validade"));
 
             }
             return prod;
