@@ -123,24 +123,41 @@ public class funcionariosDao {
 
     }
 
-    public void alterarFuncionario(Funcionario func) throws SQLException {
+    public void alterarFuncionario(Funcionario func) {
         try {
-            String sql = "update funcionario set nome=?, idade=?, endereco=?, celular=?, cpf=?"
+            String sql = "update funcionario set nome=?, idade=?, endereco=?, celular=?, matricula=?, rg=?, cpf=?"
                     + "where id_func=?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, func.getId());
-            stmt.setString(2, func.getNome());
-            stmt.setInt(3, func.getIdade());
-            stmt.setString(4, func.getEndereco());
-            stmt.setString(5, func.getCelular());
-            stmt.setString(6, func.getCpf());
+            PreparedStatement stmt = con.prepareStatement(sql);           
+            stmt.setString(1, func.getNome());
+            stmt.setInt(2, func.getIdade());
+            stmt.setString(3, func.getEndereco());
+            stmt.setString(4, func.getCelular());
+            stmt.setString(5, func.getMatricula());
+            stmt.setString(6, func.getRg());
+            stmt.setString(7, func.getCpf());
+             stmt.setInt(8, func.getId());
 
             stmt.executeUpdate();
             
+            stmt.close();
             JOptionPane.showMessageDialog(null, "Alterado");
         } catch (SQLException erro) {
-
+            erro.printStackTrace();
             JOptionPane.showMessageDialog(null, "errado: " + erro);
+        }
+    }
+    
+    public void editar(String nome,int idade,String endereco,String celular,String cpf,String rg, int matricula, int id){
+        try {
+            String update = "update funcionario set nome=" + nome+",idade="+idade+",endereco="+endereco+",celular="+
+                    celular+",rg="+rg+",matricula="+matricula+",cpf="+cpf+"where id_func="+id;
+            
+            PreparedStatement stmt = con.prepareStatement(update);
+            
+            stmt.executeLargeUpdate(update);
+            
+            stmt.close();
+        } catch (Exception e) {
         }
     }
 
@@ -155,7 +172,7 @@ public class funcionariosDao {
             stmt.close();
             JOptionPane.showMessageDialog(null, "Excluido com sucesso");
         } catch (SQLException erro) {
-
+            
             JOptionPane.showMessageDialog(null, "errado: " + erro);
         }
     }

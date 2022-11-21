@@ -456,7 +456,6 @@ public class TelaProdutos extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Produtos prod = new Produtos(); 
        
-        prod.setId(Integer.parseInt(txtId.getText()));
         prod.setNome(txtNome.getText());
         prod.setFabricação(txtFabricacao.getText());
         prod.setCategoria(txtCategoria.getText());
@@ -464,6 +463,7 @@ public class TelaProdutos extends javax.swing.JFrame {
         prod.setPreco(Double.parseDouble(txtPreco.getText()));
         prod.setQuantidade(Integer.parseInt(txtQtd.getText()));
         prod.setValidade(txtValidade.getText());
+         prod.setId(Integer.parseInt(txtId.getText()));
         
         
         ProdutosDao dao = new ProdutosDao();

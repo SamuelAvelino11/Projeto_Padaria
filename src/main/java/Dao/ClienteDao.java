@@ -52,13 +52,13 @@ public class ClienteDao {
         try {
             String sql = "update cliente set nome=?, idade=?, endereco=?, celular=?, cpf=?"
                     + "where id_cliente=?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, cl.getId());
-            stmt.setString(2, cl.getNome());
-            stmt.setInt(3, cl.getIdade());
-            stmt.setString(4, cl.getEndereco());
-            stmt.setString(5, cl.getCelular());
-            stmt.setString(6, cl.getCpf());
+            PreparedStatement stmt = con.prepareStatement(sql);           
+            stmt.setString(1, cl.getNome());
+            stmt.setInt(2, cl.getIdade());
+            stmt.setString(3, cl.getEndereco());
+            stmt.setString(4, cl.getCelular());
+            stmt.setString(5, cl.getCpf());
+            stmt.setInt(6, cl.getId());
 
             stmt.execute();
             stmt.close();
@@ -174,4 +174,24 @@ public class ClienteDao {
         }
     }
 
+    
+    public  Cliente consultaPorNomeDois(String cpf) {
+        try {
+            String sql = "select nome from cliente where cpf = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            Cliente cl = new Cliente();
+            if (rs.next()) {
+                  
+                cl.setNome(rs.getString("nome"));
+                
+            }
+            return cl;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+        }
+    }
 }

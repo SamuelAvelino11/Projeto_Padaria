@@ -18,13 +18,35 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Comanda extends javax.swing.JFrame {
 
+    
+    
+    
     /**
      * Creates new form Comanda
      */
     public Comanda() {
         initComponents();
     }
-
+public void carregar() throws SQLException{
+        ComandaDao dao = new ComandaDao();
+        
+        String tabela = txtComanda.getText();
+        
+        List<Comandas> lista = dao.listaDeItens(tabela);
+        DefaultTableModel dados = (DefaultTableModel) TabelaComanda.getModel();
+        dados.setNumRows(0);
+        
+        for (Comandas c : lista){
+        dados.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getQuantidade(),
+            c.getPreco(),
+            c.getPrecoFinal()
+            
+        });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,15 +61,18 @@ public class Comanda extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtComanda = new javax.swing.JTextField();
-        btnSalvaComanda = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaComanda = new javax.swing.JTable();
+        btnSalvaComanda = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -85,14 +110,6 @@ public class Comanda extends javax.swing.JFrame {
 
         txtComanda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnSalvaComanda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSalvaComanda.setText("CADASTRAR");
-        btnSalvaComanda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvaComandaActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("PRODUTO:");
 
@@ -119,6 +136,22 @@ public class Comanda extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton2.setText("ATUALIZAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton3.setText("EXCLUIR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -134,36 +167,42 @@ public class Comanda extends javax.swing.JFrame {
                     .addComponent(txtNome))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdicionar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalvaComanda)
-                        .addGap(73, 73, 73)))
+                    .addComponent(jLabel4)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(txtQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnSalvaComanda)
-                    .addComponent(btnBuscar))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(btnBuscar))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2)
+                        .addGap(9, 9, 9)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         TabelaComanda.setModel(new javax.swing.table.DefaultTableModel(
@@ -185,7 +224,28 @@ public class Comanda extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        TabelaComanda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaComandaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelaComanda);
+
+        btnSalvaComanda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvaComanda.setText("CADASTRAR");
+        btnSalvaComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaComandaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("LIMPAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,6 +257,12 @@ public class Comanda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(btnSalvaComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,11 +271,16 @@ public class Comanda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvaComanda)
+                    .addComponent(jButton1))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaComandaActionPerformed
@@ -236,56 +307,75 @@ public class Comanda extends javax.swing.JFrame {
         ComandaDao dao = new ComandaDao();
         try {
             dao.AdicionarAComanda(nome, Comanda, qtd);
+            carregar();
         } catch (SQLException ex) {
             Logger.getLogger(Comanda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
         try {
-            String nome = "%" + txtComanda.getText() + "%";
+            carregar();
             
-            ComandaDao dao = new ComandaDao();
-            
-            List<Comandas> lista = dao.listaDeItens(nome);
-            DefaultTableModel dados = (DefaultTableModel) TabelaComanda.getModel();
-            dados.setNumRows(0);
-            
-            for (Comandas c : lista){
-                dados.addRow(new Object[]{
-                    c.getId(),
-                    c.getNome(),
-                    c.getQuantidade(),
-                    c.getPreco(),
-                    c.getPrecoFinal()
-                        
-                });
-            }
         } catch (SQLException ex) {
             Logger.getLogger(Comanda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-   
-    public void carregar() throws SQLException{
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       ComandaDao dao = new ComandaDao();
+       
+       String tabela = txtComanda.getText();
+       
+       dao.limpar(tabela);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TabelaComandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaComandaMouseClicked
+        txtNome.setText(TabelaComanda.getValueAt(TabelaComanda.getSelectedRow(),1).toString());
+        txtQtd.setText(TabelaComanda.getValueAt(TabelaComanda.getSelectedRow(),2).toString());
+        
+    }//GEN-LAST:event_TabelaComandaMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Comandas com = new Comandas();
         ComandaDao dao = new ComandaDao();
         
-        List<Comandas> lista = dao.listaDeItens(txtComanda.getText());
-        DefaultTableModel dados = (DefaultTableModel) TabelaComanda.getModel();
-        dados.setNumRows(0);
+        int id = Integer.parseInt(TabelaComanda.getValueAt(TabelaComanda.getSelectedRow(),0).toString());
+        String nome = txtComanda.getText();
+        Double pre = Double.parseDouble(TabelaComanda.getValueAt(TabelaComanda.getSelectedRow(),3).toString());
         
-        for (Comandas c : lista){
-        dados.addRow(new Object[]{
-            c.getId(),
-            c.getNome(),
-            c.getQuantidade(),
-            c.getPreco(),
-            c.getPrecoFinal()
-            
-        });
+        com.setNome(txtNome.getText());
+        com.setQuantidade(Integer.parseInt(txtQtd.getText()));
+        com.setPrecoFinal(pre);
+        com.setId(id);
+        try {
+            dao.updateComanda(com, nome);
+            carregar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Comanda.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Comandas com = new Comandas();
+        ComandaDao dao = new ComandaDao();
+        
+        int id = Integer.parseInt(TabelaComanda.getValueAt(TabelaComanda.getSelectedRow(),0).toString());
+        String nome = txtComanda.getText();
+        
+        com.setId(id);
+        
+        try {
+            dao.deleteItem(com, nome);
+            carregar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Comanda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+   
+    
     
     /**
      * @param args the command line arguments
@@ -327,6 +417,9 @@ public class Comanda extends javax.swing.JFrame {
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSalvaComanda;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

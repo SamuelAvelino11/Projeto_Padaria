@@ -90,21 +90,21 @@ public class ProdutosDao {
             String sql = "update produto set nome=?, fabricacao=?, categoria=?, descricao=?, preco=?, quantidade=?, validade=?"
                     + "where id_prod=?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, prod.getId());
-            stmt.setString(2, prod.getNome());
-            stmt.setString(3, prod.getFabricação());
-            stmt.setString(4, prod.getCategoria());
-            stmt.setString(5, prod.getDescrição());
-            stmt.setDouble(6, prod.getPreco());
-            stmt.setInt(7, prod.getQuantidade());
-            stmt.setString(8, prod.getValidade());
+            stmt.setInt(8, prod.getId());
+            stmt.setString(1, prod.getNome());
+            stmt.setString(2, prod.getFabricação());
+            stmt.setString(3, prod.getCategoria());
+            stmt.setString(4, prod.getDescrição());
+            stmt.setDouble(5, prod.getPreco());
+            stmt.setInt(6, prod.getQuantidade());
+            stmt.setString(7, prod.getValidade());
             
 
             stmt.execute();
             stmt.close();
             JOptionPane.showMessageDialog(null, "Alterado");
         } catch (SQLException erro) {
-
+            erro.printStackTrace();
             JOptionPane.showMessageDialog(null, "errado: " + erro);
         }
     }

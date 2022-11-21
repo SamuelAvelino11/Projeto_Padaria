@@ -44,6 +44,10 @@ public class ComandaDao {
         JOptionPane.showMessageDialog(null, "Comanda cadastrada com sucesso");
     
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     public void CriarTabela() throws SQLException{
         String nome = "venda";
         String sql =  
@@ -56,6 +60,9 @@ public class ComandaDao {
         JOptionPane.showMessageDialog(null, "Comanda cadastrada com sucesso");
     
     }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     
     public void AdicionarAComanda(String nome, String comanda, int qtd) throws SQLException{
         String sql = "select id_prod,nome,preco from produto where nome = ?";
@@ -93,14 +100,15 @@ public class ComandaDao {
          insert.close();
          
     }
+    ///////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
     
     public List<Comandas> listaDeItens(String nome) throws SQLException{
         List<Comandas> lista = new ArrayList<>();
         
-        String sql = "select * from ?;";
+        String sql = "select * from " + nome;
         
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setString(1, nome);
         ResultSet rs = stmt.executeQuery();
         
         while(rs.next()){
@@ -115,8 +123,11 @@ public class ComandaDao {
             lista.add(com);
         }
         
+        
         return lista;
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////
      public  Cliente consultaPorNome(String nome) {
         try {
             String sql = "select nome,cpf from cliente where nome = ?";
@@ -136,8 +147,9 @@ public class ComandaDao {
             return null;
         }
     }
- 
-     public Vendas Total(String nome) throws SQLException{
+ ///////////////////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////////////////////////////////////////////////////////////////
+     public Double Total(String nome) throws SQLException{
          String sql = "select sum(precoFinal) from " + nome;
          PreparedStatement stmt = con.prepareStatement(sql);
          ResultSet rs = stmt.executeQuery();
@@ -145,8 +157,55 @@ public class ComandaDao {
          Vendas ven = new Vendas();
          
          if (rs.next()){
-             ven.setTotal(rs.getDouble("precoFinal"));
+             ven.setTotal(rs.getDouble("sum(precoFinal)"));
          }
-         return ven;
+         return ven.getTotal();
      }
+     ///////////////////////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////////////////////////////////////////////////////////////////////////
+     
+     public void limpar(String nome){
+         try {
+            String truncate = "truncate table " + nome;
+            
+            PreparedStatement stmt = con.prepareStatement(truncate);
+            stmt.execute();
+            stmt.close();
+         } catch (Exception e) {
+         }
+     }
+     //////////////////////////////////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////////////////////////////////
+     
+     public void updateComanda(Comandas c,String nome) throws SQLException{
+         
+         String update = "update "+ nome +" set nome=?,quantidade=?,precoFinal=? where id=?";
+         
+         PreparedStatement stmt = con.prepareStatement(update);
+         
+         int qtd = c.getQuantidade();
+         stmt.setString(1, c.getNome());
+         stmt.setInt(2, c.getQuantidade());
+         stmt.setDouble(3, c.getPrecoFinal() * qtd);
+         stmt.setInt(4, c.getId());
+         
+         stmt.execute();
+         stmt.close();
+         
+     }
+     
+     public void deleteItem(Comandas c,String nome) throws SQLException{
+         
+         String delete = "delete from " + nome + " where id=?";
+         
+         PreparedStatement stmt = con.prepareStatement(delete);
+         
+         stmt.setInt(1, c.getId());
+         
+         stmt.execute();
+         stmt.close();
+         
+     }
+     
+    
 }

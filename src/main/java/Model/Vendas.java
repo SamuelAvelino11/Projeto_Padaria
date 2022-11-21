@@ -15,13 +15,34 @@ public class Vendas {
         private int id;
         private String nome;
         private String nome_cl;
-        private Date data;
+        private String data;
         private String cpf_cl;
+        private int id_cl;
+        private int id_prod;
         private int quantidade;
         private double preco;
         private double precoFinal;
         private double Total;
 
+    public int getId_cl() {
+        return id_cl;
+    }
+
+    public void setId_cl(int id_cl) {
+        this.id_cl = id_cl;
+    }
+
+    public int getId_prod() {
+        return id_prod;
+    }
+
+    public void setId_prod(int id_prod) {
+        this.id_prod = id_prod;
+    }
+
+        
+        
+        
     public double getTotal() {
         return Total;
     }
@@ -56,11 +77,11 @@ public class Vendas {
         this.nome_cl = nome_cl;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
