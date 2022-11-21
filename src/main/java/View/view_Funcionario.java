@@ -4,6 +4,7 @@
  */
 package View;
 
+
 import Dao.funcionariosDao;
 import Model.Funcionario;
 import Model.Utilitarios;
@@ -470,6 +471,8 @@ public class view_Funcionario extends javax.swing.JFrame {
         func.setCpf(txtCpf.getText());
         func.setSenha(txtSenha.getText());
         
+       
+        
         funcionariosDao dao = new funcionariosDao();
         
         dao.CadastrarFuncionario(func);
@@ -496,6 +499,7 @@ public class view_Funcionario extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
        Funcionario func = new Funcionario();  
        
+        func.setId(Integer.parseInt(txtId.getText()));
         func.setNome(txtNome.getText());
         func.setIdade(Integer.parseInt(txtIdade.getText()));
         func.setEndereco(txtEndereco.getText());
@@ -503,14 +507,19 @@ public class view_Funcionario extends javax.swing.JFrame {
         func.setMatricula(txtMatricula.getText());
         func.setRg(txtRG.getText());
         func.setCpf(txtCpf.getText());
+       
+       
+       
         
          funcionariosDao dao = new funcionariosDao();
          
          try {
-            dao.alterarFuncionario(func);
+             dao.alterarFuncionario(func);
+             //c.update(func);
+            //dao.editar(nome,idade,endereco,celular,cpf,rg,matricula,id);
             new Utilitarios().LimpaTela(jPanel2);
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
         
     }//GEN-LAST:event_btnEditarActionPerformed

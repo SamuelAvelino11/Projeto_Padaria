@@ -17,7 +17,36 @@ public class Produtos {
     private String fabricação;
     private String categoria;
     private String Descrição;
+    private double preco;
+    private int quantidade;
+    private String validade;
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public String getValidade() {
+        return validade;
+    }
+
+    public void setValidade(String validade) {
+        this.validade = validade;
+    }
+    
+    
+    
     public int getId() {
         return id;
     }

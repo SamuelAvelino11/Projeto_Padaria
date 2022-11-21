@@ -391,6 +391,8 @@ public class cliente extends javax.swing.JFrame {
         
             Cliente cl = new Cliente();
             
+            
+            
             cl.setNome(txtNome.getText());
             cl.setIdade(Integer.parseInt(txtIdade.getText()));
             cl.setEndereco(txtEndereco.getText());
@@ -422,6 +424,7 @@ public class cliente extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
         Cliente cl = new Cliente();
+            
             
             cl.setNome(txtNome.getText());
             cl.setIdade(Integer.parseInt(txtIdade.getText()));
